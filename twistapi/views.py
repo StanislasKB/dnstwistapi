@@ -7,12 +7,21 @@ import requests
 
 class DomainsView(ReadOnlyModelViewSet):
     
-    permission_classes=[HasAPIKey]
+    #permission_classes=[HasAPIKey]
     serializer_class=DomainsSerializer
     def get_queryset(self):
         domain_name=self.request.GET['domain_name']
         data = dnstwist.run(domain=domain_name, registered=True, format='null')
-        return data
+        temp_list=[]
+        for i in data: 
+            temp_dict={}
+            temp_dict['fuzzer']=i.get('fuzzer')         
+            temp_dict['domain']=i.get('domain')         
+            #temp_dict['dns_ns']=i.get('dns_ns')         
+            temp_dict['dns_a']=i.get('dns_a')         
+            #temp_dict['dns_mx']=i.get('dns_mx')         
+            temp_list.append(temp_dict)
+        return temp_list
     
 
 
