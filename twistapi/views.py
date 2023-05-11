@@ -17,9 +17,9 @@ class DomainsView(ReadOnlyModelViewSet):
             temp_dict={}
             temp_dict['fuzzer']=i.get('fuzzer')         
             temp_dict['domain']=i.get('domain')         
-            #temp_dict['dns_ns']=i.get('dns_ns')         
+            temp_dict['dns_ns']=i.get('dns_ns')         
             temp_dict['dns_a']=i.get('dns_a')         
-            #temp_dict['dns_mx']=i.get('dns_mx')         
+            temp_dict['dns_mx']=i.get('dns_mx')         
             temp_list.append(temp_dict)
         return temp_list
     
@@ -28,7 +28,7 @@ class DomainsView(ReadOnlyModelViewSet):
 class KeyObtainView(ReadOnlyModelViewSet):
     serializer_class=KeyObtainSerializer
     def get_queryset(self):
-        nom='toto'
+        nom='name'
         api_key, key=APIKey.objects.create_key(name=nom)
         data=[{'key_name':api_key,'key_value':key}]
         return data
